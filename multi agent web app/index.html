@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Task Manager</title>
+  <!-- Google Fonts - Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <!-- Dynamic Ambient Background Blobs -->
+  <div class="ambient-blobs">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-logo-title">
+        <div class="logo-icon-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="url(#gradient-logo)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <defs>
+              <linearGradient id="gradient-logo" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#a855f7" />
+                <stop offset="100%" stop-color="#f43f5e" />
+              </linearGradient>
+            </defs>
+            <polyline points="9 11 12 14 22 4"></polyline>
+            <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path>
+          </svg>
+        </div>
+        <h1>Smart Task Manager</h1>
+      </div>
+      <div class="header-actions">
+        <button id="btn-load-demo" class="btn-theme-toggle" aria-label="Load Sample Demo Tasks">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0-.57-8.38l5.67-5.67"></path></svg>
+          <span>Load Sample Tasks</span>
+        </button>
+        <button id="theme-toggle" class="btn-theme-toggle" aria-label="Toggle light/dark theme">
+          <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Stats Dashboard Section -->
+    <section class="dashboard-stats glass-panel" aria-label="Task Statistics">
+      <div class="stat-card">
+        <div class="stat-icon-wrapper total">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">12</span>
+          <span class="stat-label">Total Tasks</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon-wrapper pending">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">8</span>
+          <span class="stat-label">Pending</span>
+        </div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon-wrapper completed">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <div class="stat-info">
+          <span class="stat-value">4</span>
+          <span class="stat-label">Completed</span>
+        </div>
+      </div>
+      <div class="progress-container">
+        <div class="progress-info">
+          <span class="progress-label">Task Completion Progress</span>
+          <span class="progress-percentage">33%</span>
+        </div>
+        <div class="progress-bar-wrapper">
+          <div class="progress-bar" style="width: 33%;"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Workspace Layout -->
+    <div class="main-layout">
+      <!-- Left Sidebar: Task Form -->
+      <aside class="sidebar-panel">
+        <section class="task-form-panel glass-panel">
+          <h2>Create New Task</h2>
+          <form id="task-form" class="task-form">
+            <div class="form-group">
+              <label for="task-title">Task Title</label>
+              <input type="text" id="task-title" class="form-input" required placeholder="What needs to be done?">
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="task-priority">Priority</label>
+                <select id="task-priority" class="form-select">
+                  <option value="low">Low Priority</option>
+                  <option value="medium" selected>Medium Priority</option>
+                  <option value="high">High Priority</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="task-due-date">Due Date</label>
+                <input type="date" id="task-due-date" class="form-input">
+              </div>
+            </div>
+            <button type="submit" class="btn-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span>Add Task</span>
+            </button>
+          </form>
+        </section>
+      </aside>
+
+      <!-- Right Panel: Filters + Task Lists -->
+      <section class="content-panel">
+        <!-- Controls & Filters Card -->
+        <div class="controls-panel glass-panel">
+          <div class="search-filter-row">
+            <div class="search-wrapper">
+              <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="task-search" placeholder="Search tasks..." aria-label="Search tasks">
+            </div>
+            <div class="priority-filter-wrapper">
+              <select id="priority-filter" class="form-select" aria-label="Filter by priority">
+                <option value="all">All Priorities</option>
+                <option value="low">Low Priority</option>
+                <option value="medium">Medium Priority</option>
+                <option value="high">High Priority</option>
+              </select>
+            </div>
+          </div>
+          
+          <div class="filter-tabs-wrapper">
+            <div class="filter-tabs" role="tablist">
+              <button class="tab-btn active" role="tab" aria-selected="true" data-tab="all">
+                All Tasks
+              </button>
+              <button class="tab-btn" role="tab" aria-selected="false" data-tab="pending">
+                Pending Tasks
+              </button>
+              <button class="tab-btn" role="tab" aria-selected="false" data-tab="completed">
+                Completed Tasks
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Task Columns (Flex / Grid Layout) -->
+        <main class="task-lists-grid">
+          <!-- Pending Tasks Section -->
+          <section id="pending-section" class="task-column">
+            <div class="column-header">
+              <h2>Pending Tasks</h2>
+              <span class="column-badge pending">8</span>
+            </div>
+            <div class="task-list">
+              <!-- Task Card 1: High Priority & Overdue -->
+              <div class="task-card priority-high overdue" tabindex="0">
+                <div class="task-card-header">
+                  <div class="badge-row">
+                    <span class="priority-badge">High Priority</span>
+                    <span class="warning-badge">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                      Overdue
+                    </span>
+                  </div>
+                </div>
+                <h3 class="task-title">Review Q3 Budget Proposal & Allocations</h3>
+                <div class="task-meta">
+                  <span class="due-date text-danger">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    Due: June 15, 2026 (5 days ago)
+                  </span>
+                </div>
+                <div class="task-actions">
+                  <button class="btn-action btn-complete" aria-label="Mark task as complete">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>Complete</span>
+                  </button>
+                  <div class="action-subgroup">
+                    <button class="btn-icon-action btn-edit-task" aria-label="Edit task">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                    </button>
+                    <button class="btn-icon-action btn-delete-task btn-danger-action" aria-label="Delete task">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Task Card 2: Medium Priority -->
+              <div class="task-card priority-medium" tabindex="0">
+                <div class="task-card-header">
+                  <div class="badge-row">
+                    <span class="priority-badge">Medium Priority</span>
+                  </div>
+                </div>
+                <h3 class="task-title">Design Landing Page Hero Section Layout</h3>
+                <div class="task-meta">
+                  <span class="due-date">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    Due: June 22, 2026
+                  </span>
+                </div>
+                <div class="task-actions">
+                  <button class="btn-action btn-complete" aria-label="Mark task as complete">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>Complete</span>
+                  </button>
+                  <div class="action-subgroup">
+                    <button class="btn-icon-action btn-edit-task" aria-label="Edit task">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                    </button>
+                    <button class="btn-icon-action btn-delete-task btn-danger-action" aria-label="Delete task">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Task Card 3: Low Priority -->
+              <div class="task-card priority-low" tabindex="0">
+                <div class="task-card-header">
+                  <div class="badge-row">
+                    <span class="priority-badge">Low Priority</span>
+                  </div>
+                </div>
+                <h3 class="task-title">Update Project Node Packages & Dependencies</h3>
+                <div class="task-meta">
+                  <span class="due-date">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                    Due: June 28, 2026
+                  </span>
+                </div>
+                <div class="task-actions">
+                  <button class="btn-action btn-complete" aria-label="Mark task as complete">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                    <span>Complete</span>
+                  </button>
+                  <div class="action-subgroup">
+                    <button class="btn-icon-action btn-edit-task" aria-label="Edit task">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 1 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                    </button>
+                    <button class="btn-icon-action btn-delete-task btn-danger-action" aria-label="Delete task">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Completed Tasks Section -->
+          <section id="completed-section" class="task-column">
+            <div class="column-header">
+              <h2>Completed Tasks</h2>
+              <span class="column-badge completed">4</span>
+            </div>
+            <div class="task-list">
+              <!-- Completed Task Card 1: High Priority -->
+              <div class="task-card completed priority-high" tabindex="0">
+                <div class="task-card-header">
+                  <div class="badge-row">
+                    <span class="priority-badge">High Priority</span>
+                    <span class="completed-badge">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      Completed
+                    </span>
+                  </div>
+                </div>
+                <h3 class="task-title">Setup Daily Cloud Database Automated Backups</h3>
+                <div class="task-meta">
+                  <span class="completed-date">
+                    Completed on June 18, 2026
+                  </span>
+                </div>
+                <div class="task-actions">
+                  <button class="btn-action btn-reopen" aria-label="Reopen task">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0-.57-8.38l5.67-5.67"></path></svg>
+                    <span>Reopen</span>
+                  </button>
+                  <div class="action-subgroup">
+                    <button class="btn-icon-action btn-delete-task btn-danger-action" aria-label="Delete task">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Completed Task Card 2: Low Priority -->
+              <div class="task-card completed priority-low" tabindex="0">
+                <div class="task-card-header">
+                  <div class="badge-row">
+                    <span class="priority-badge">Low Priority</span>
+                    <span class="completed-badge">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                      Completed
+                    </span>
+                  </div>
+                </div>
+                <h3 class="task-title">Draft Weekly Internal Team Status Email</h3>
+                <div class="task-meta">
+                  <span class="completed-date">
+                    Completed on June 19, 2026
+                  </span>
+                </div>
+                <div class="task-actions">
+                  <button class="btn-action btn-reopen" aria-label="Reopen task">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 2v6h6M2.66 15.57a10 10 0 1 0-.57-8.38l5.67-5.67"></path></svg>
+                    <span>Reopen</span>
+                  </button>
+                  <div class="action-subgroup">
+                    <button class="btn-icon-action btn-delete-task btn-danger-action" aria-label="Delete task">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </section>
+    </div>
+  </div>
+
+  <!-- Custom Edit Task Accessible Dialog Modal -->
+  <dialog id="edit-dialog" class="custom-dialog">
+    <div class="dialog-header">
+      <h2>Edit Task Details</h2>
+      <button class="btn-close-dialog" id="btn-close-edit" aria-label="Close edit dialog">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <form id="edit-form" method="dialog" class="dialog-form">
+      <div class="form-group">
+        <label for="edit-title">Task Title</label>
+        <input type="text" id="edit-title" class="form-input" required value="Review Q3 Budget Proposal & Allocations">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="edit-priority">Priority</label>
+          <select id="edit-priority" class="form-select">
+            <option value="low">Low Priority</option>
+            <option value="medium">Medium Priority</option>
+            <option value="high" selected>High Priority</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="edit-due-date">Due Date</label>
+          <input type="date" id="edit-due-date" class="form-input" value="2026-06-15">
+        </div>
+      </div>
+      <div class="dialog-actions">
+        <button type="button" class="btn-secondary" id="btn-cancel-edit">Cancel</button>
+        <button type="submit" class="btn-primary">Save Changes</button>
+      </div>
+    </form>
+  </dialog>
+
+  <!-- Custom Confirm Delete Accessible Dialog Modal -->
+  <dialog id="delete-dialog" class="custom-dialog confirm-dialog">
+    <div class="dialog-header">
+      <h2>Delete Task</h2>
+      <button class="btn-close-dialog" id="btn-close-delete" aria-label="Close delete dialog">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <div class="dialog-body">
+      <p>Are you sure you want to delete this task? This action is permanent and cannot be undone.</p>
+    </div>
+    <div class="dialog-actions">
+      <button type="button" class="btn-secondary" id="btn-cancel-delete">Cancel</button>
+      <button type="button" class="btn-danger" id="btn-confirm-delete">Delete Task</button>
+    </div>
+  </dialog>
+
+
+</body>
+</html>
